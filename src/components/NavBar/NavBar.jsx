@@ -39,6 +39,10 @@ const NavBar = () => {
             title: "meals",
             path: '/meals'
         },
+        {
+            title: "counterApp",
+            path: '/counterApp'
+        },
         
         
 

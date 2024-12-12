@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+export const metadata = {
+    title: "About",
+    description: "About Super Powerful Next js",
+  };
+
 
 const aboutPage = () => {
     return (

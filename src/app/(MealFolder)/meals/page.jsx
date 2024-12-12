@@ -1,9 +1,17 @@
 import MealsLink from '@/components/MealsLink/MealsLink';
 
+export const metadata = {
+    title: {
+      absolute: "About Us - Meals",
+    },
+    keywords: ["about", "meals", "recipes", "about page"],
+    description: "Discover all kinds of delicious meals and recipes here.",
+  };
+
 
 const mealDBpage = () => {
 
-    
+
 
     return (
         <div className='m-12 text-center'>
