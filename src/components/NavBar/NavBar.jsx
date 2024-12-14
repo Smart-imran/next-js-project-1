@@ -1,4 +1,5 @@
 'use client'
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -8,6 +9,8 @@ const NavBar = () => {
 
     const pathName = usePathname();
     const router = useRouter();
+   /*  const sesson = useSession();
+    console.log(sesson); */
 
     const links = [
         {
@@ -34,7 +37,7 @@ const NavBar = () => {
             title: "posts",
             path: '/posts'
         },
-        
+
         {
             title: "meals",
             path: '/meals'
@@ -43,12 +46,12 @@ const NavBar = () => {
             title: "counterApp",
             path: '/counterApp'
         },
-        
-        
+
+
 
     ]
 
-    const handleLoginClick = ()=>{ 
+    const handleLoginClick = () => {
         router.push('/login')
     }
 
