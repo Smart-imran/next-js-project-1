@@ -17,14 +17,57 @@ const handler = NextAuth({
       },
 
       async authorize(credentials) {
+
+        const { email, password } = credentials;
+
+
         if (!credentials) {
           return null;
         }
-        return true;
+
+        if (email) {
+
+          const currentUser = users.find((user) => user.email === email)
+          if (currentUser) {
+            if (currentUser.password === password) {
+              return currentUser;
+            }
+          }
+        }
+        return null;
+
       }
     })
   ],
 
 });
+
+
+const users = [
+
+  {
+    id: 1,
+    name: "imran",
+    email: "m@gmail.com",
+    password: "password",
+  },
+
+
+  {
+    id: 2,
+    name: "imran2",
+    email: "k@gmail.com",
+    password: "password",
+  },
+
+  {
+    id: 3,
+    name: "imran3",
+    email: "w@gmail.com",
+    password: "password",
+  }
+
+];
+
 
 export { handler as GET, handler as POST };
