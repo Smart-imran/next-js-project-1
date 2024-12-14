@@ -28,7 +28,7 @@ const NavBar = () => {
         },
         {
             title: "NewLogin",
-            path: '/newlogin'
+            path: '/api/auth/signin'
         },
         {
             title: "posts",
