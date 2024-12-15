@@ -3,87 +3,62 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-
-
 const NavBar = () => {
+  const pathName = usePathname();
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  console.log(session);
 
-    const pathName = usePathname();
-    const router = useRouter();
-   /*  const sesson = useSession();
-    console.log(sesson); */
+  const links = [
+    { title: "About", path: '/about' },
+    { title: "Service", path: '/service' },
+    { title: "Contact", path: '/contact' },
+    { title: "Blogs", path: '/blogs' },
+    { title: "NewLogin", path: '/newlogin' },
+    { title: "Posts", path: '/posts' },
+    { title: "Meals", path: '/meals' },
+    { title: "CounterApp", path: '/counterApp' },
+  ];
 
-    const links = [
-        {
-            title: "About",
-            path: '/about'
-        },
-        {
-            title: "Service",
-            path: '/service'
-        },
-        {
-            title: "Contact",
-            path: '/contact'
-        },
-        {
-            title: "Blogs",
-            path: '/blogs'
-        },
-        {
-            title: "NewLogin",
-            path: '/api/auth/signin'
-        },
-        {
-            title: "posts",
-            path: '/posts'
-        },
+  const handleLog = () => {
+    router.push(status === "authenticated" ? '/api/auth/signout' : '/api/auth/signin');
+  };
 
-        {
-            title: "meals",
-            path: '/meals'
-        },
-        {
-            title: "counterApp",
-            path: '/counterApp'
-        },
+  return (
+    <div>
+      <nav className="bg-red-400 px-6 py-4 flex justify-between items-center">
+        <Link href={'/'}> 
+          <h6 className="text-3xl">Next <span className="text-blue-600">Master</span></h6>
+        </Link>
 
+        <ul className="flex items-center justify-between space-x-4 text-white">
+          {links?.map(link => (
+            <Link 
+              className={`${pathName === link.path && 'bg-blue-600 p-2'}`} 
+              href={link.path} 
+              key={link.path}
+            >
+              {link.title}
+            </Link>
+          ))}
+        </ul>
 
+        <button 
+          onClick={handleLog} 
+          className="bg-white text-red-700 p-2 font-bold hover:bg-yellow-200"
+        >
+          {status === 'authenticated' ? 'Log Out' : 'Log In'}
+        </button>
 
-    ]
-
-    const handleLoginClick = () => {
-        router.push('/login')
-    }
-
-    return (
-        <div>
-            <nav className="bg-red-400 px-6 py-4 flex justify-between items-center">
-
-                <Link href={'/'}> <h6 className="text-3xl">Next <span className="text-blue-600">Master</span></h6></Link>
-
-
-                <ul className="flex items-center justify-between space-x-4   text-white">
-
-                    {/* <li><Link href='/about'>About</Link></li>
-                    <li><Link href='/service'>Service</Link></li>
-                    <li><Link href='/contact'>Contact</Link></li> */}
-
-
-                    {links?.map((link) => (
-
-                        <Link className={`${pathName === link.path && 'bg-blue-600 p-2'}`} href={link.path} key={link.path}>
-                            {link.title}
-                        </Link>
-
-                    ))}
-                </ul>
-
-                <button onClick={handleLoginClick} className="bg-white text-red-700 p-2 font-bold hover:bg-yellow-200">
-                    Log in
-                </button>
-            </nav>
-        </div>
-    );
+        {status === "authenticated" && (
+          <div>
+            <h6>Name: {session?.user?.name || "N/A"}</h6>
+            <h6>Type: {session?.user?.type || "N/A"}</h6>
+          </div>
+        )}
+      </nav>
+    </div>
+  );
 };
 
 export default NavBar;
